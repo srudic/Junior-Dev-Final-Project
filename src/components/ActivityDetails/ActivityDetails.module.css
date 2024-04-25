@@ -1,0 +1,58 @@
+.detailsContainer {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+
+.detailsContainer h3 {
+  font-size: 24px;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+  color: rgb(26, 66, 94);
+}
+
+.date {
+  color: gray;
+}
+
+.association {
+  color: rgb(26, 66, 94);
+}
+
+.detailsContainer p {
+  font-size: 16px;
+  margin: 0 0 5px 0;
+}
+
+.detailsContainer span {
+  margin-left: 5px;
+  color: gray;
+}
+
+.left {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.detailsContainer ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detailsContainer li {
+  font-size: 14px;
+  margin-left: 20px;
+  color: gray;
+}
+
+.participants {
+  padding-top: 20px;
+  color: rgb(26, 66, 94);
+}

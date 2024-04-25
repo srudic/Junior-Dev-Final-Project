@@ -1,13 +1,15 @@
 .cardContainer {
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 5px 5px 5px 20px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .activityName {
   font-size: 20px;
   margin-bottom: 10px;
+  color: rgb(26, 66, 94);
 }
 
 .dateTime {
