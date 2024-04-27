@@ -1,0 +1,40 @@
+.volonteerList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.volonteerContainer {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 240px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  color: rgb(26, 66, 94);
+}
+
+.title h3 {
+  margin: 1rem 0 0 0;
+}
+
+.title span {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.jobs {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  color: gray;
+}
+
+.jobs p {
+  display: flex;
+  align-items: center;
+}
