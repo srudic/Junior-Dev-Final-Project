@@ -37,6 +37,7 @@ const ACTIVITIES = [
   },
 ];
 
+import ActivityHeader from "../../components/ActivityHeader/ActivityHeader";
 import Cards from "../../components/Cards/Cards";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
@@ -50,6 +51,7 @@ import Wrapper from "../../components/UI/Wrapper/Wrapper";
 const Activities = () => {
   return (
     <Wrapper>
+      <ActivityHeader />
       <Cards activities={ACTIVITIES} />
     </Wrapper>
   );
