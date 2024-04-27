@@ -3,7 +3,7 @@ import styles from "./Button.module.css";
 
 const Button = ({ title, icon, titleColor, onClickButton }) => {
   const handleClick = (e) => {
-    e.stopPropagation(); // Prevent event propagation
+    e.stopPropagation();
     if (onClickButton) onClickButton();
   };
 

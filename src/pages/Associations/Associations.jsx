@@ -4,6 +4,7 @@ import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
 import { useContext } from "react";
 import UserContext from "../../context/UserContext";
+import Header from "../../components/Header/Header";
 
 const ASSOCIATIONS = [
   {
@@ -31,6 +32,7 @@ const Associations = () => {
   return (
     <Wrapper>
       <Heading title="Popis udruga" />
+      <Header associationsFlag />
       <Cards data={ASSOCIATIONS} />
       {isAdminMode && <Heading title="Zahtjevi za odobrenje" />}
       {isAdminMode && <Cards data={ASSOCIATIONS} requestsFlag />}
