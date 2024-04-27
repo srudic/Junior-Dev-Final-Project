@@ -38,21 +38,19 @@ const ACTIVITIES = [
 ];
 
 import ActivityHeader from "../../components/ActivityHeader/ActivityHeader";
-import Cards from "../../components/Cards/Cards";
+import Cards from "../../components/Shared/Cards/Cards";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
+import Heading from "../../components/UI/Heading/Heading";
 
 //TODO
 // aktivnosti možete poredati po vremenu dodavanja ili dodajte opciju sortiranja po nekom parametru (datum, grad ili slično)
 
-//Dodavanje novih aktivnosti - svi korisnici imaju opciju dodavanja novih aktivnosti u popis.
-//Potrebno je samo popuniti sve potrebne podatke i nakon potvrde unosa, nova aktivnost se dodaje u popis aktivnosti.
-//Po želji implementirajte različite provjere unosa.
-
 const Activities = () => {
   return (
     <Wrapper>
+      <Heading title="Aktivnosti" />
       <ActivityHeader />
-      <Cards activities={ACTIVITIES} />
+      <Cards data={ACTIVITIES} activities />
     </Wrapper>
   );
 };
