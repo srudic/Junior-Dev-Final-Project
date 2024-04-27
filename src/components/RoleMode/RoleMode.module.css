@@ -1,0 +1,9 @@
+.ThemeModeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.Icon {
+  display: flex;
+  align-items: center;
+}

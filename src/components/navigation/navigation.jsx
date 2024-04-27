@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./navigation.module.css";
+import RoleMode from "../RoleMode/RoleMode";
 
 const NAV_TABS = [
   { name: "", title: "Početna" },
@@ -12,28 +12,25 @@ const NAV_TABS = [
 // NavLink React Router  -> active class inspect
 
 const Navigation = () => {
-  const [activeTab, setActiveTab] = useState("");
-
   return (
     <div className={styles.Navigation}>
-      {NAV_TABS.map((tab) => (
-        <div
-          key={tab.title}
-          className={styles.Tab}
-          onClick={() => setActiveTab(tab.name)}
-        >
-          <NavLink
-            to={`/${tab.name}`}
-            style={({ isActive }) => {
-              return {
-                borderBottom: isActive ? "1px solid gray" : "",
-              };
-            }}
-          >
-            {tab.title}
-          </NavLink>
-        </div>
-      ))}
+      <div className={styles.NavTabs}>
+        {NAV_TABS.map((tab) => (
+          <div key={tab.title} className={styles.Tab}>
+            <NavLink
+              to={`/${tab.name}`}
+              style={({ isActive }) => {
+                return {
+                  borderBottom: isActive ? "1px solid gray" : "",
+                };
+              }}
+            >
+              {tab.title}
+            </NavLink>
+          </div>
+        ))}
+      </div>
+      <RoleMode />
     </div>
   );
 };

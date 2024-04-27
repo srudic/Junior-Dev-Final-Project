@@ -1,7 +1,14 @@
 .Navigation {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 1rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.NavTabs {
+  display: flex;
+  justify-content: space-between;
   width: 50%;
 }
 

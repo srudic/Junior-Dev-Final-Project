@@ -6,7 +6,7 @@ const UserContext = createContext({
 });
 
 export function UserContextProvider({ children }) {
-  const [isAdminMode, setIsAdminMode] = useState(true);
+  const [isAdminMode, setIsAdminMode] = useState(false);
 
   const value = {
     isAdminMode,
