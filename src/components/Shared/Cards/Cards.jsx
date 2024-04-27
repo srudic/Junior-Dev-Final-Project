@@ -71,6 +71,7 @@ const Card = ({
             association={element.association}
             location={element.location}
             participants={element.participants}
+            description={element.description}
           />
         </Modal>
       )}

@@ -14,8 +14,12 @@
   color: rgb(26, 66, 94);
 }
 
-.date {
+.date,
+.description {
   color: gray;
+}
+.description {
+  text-align: justify;
 }
 
 .association {
@@ -23,7 +27,7 @@
 }
 
 .detailsContainer p {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0 0 5px 0;
 }
 
@@ -55,6 +59,51 @@
 }
 
 .participants {
-  padding-top: 20px;
+  padding-top: 10px;
   color: rgb(26, 66, 94);
+}
+
+.participantsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FormContainer {
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 13px;
+}
+
+.FormGroup {
+  margin-bottom: 10px;
+  padding: 0 10px;
+}
+
+.FormGroupRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.InputField,
+.SelectField {
+  width: 100%;
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.SelectField {
+  cursor: pointer;
+}
+
+.ErrorMessage {
+  color: red;
+  font-size: 0.8rem;
 }

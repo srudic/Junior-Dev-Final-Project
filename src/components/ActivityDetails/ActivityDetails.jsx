@@ -4,6 +4,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 import { useContext } from "react";
+import { useForm } from "react-hook-form";
 
 import Button from "../UI/Button/Button";
 import UserContext from "../../context/UserContext";
@@ -14,10 +15,19 @@ const ActivityDetails = ({
   association,
   location,
   participants,
+  description,
 }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { isAdminMode } = useContext(UserContext);
   const handleOnClickDelete = () => {
     console.log("Delete");
+  };
+  const onSubmit = (data) => {
+    console.log(data);
   };
   //TODO
   //prikaz lokacije
@@ -32,30 +42,75 @@ const ActivityDetails = ({
       <h3>{name}</h3>
       <p className={styles.date}>{date}</p>
       <p className={styles.association}>{association}</p>
+      <p className={styles.description}>{description}</p>
       <div className={styles.left}>
         <p>
           <FaMapMarkerAlt color="#8B0000" size={20} />
           <span>{location}</span>
         </p>
-        <p className={styles.participants}>Popis prijavljenih</p>
-        {/* dodaj ako nema prijavljenih "Postani prvi prijavljeni ->" */}
-        {participants && (
-          <ul>
-            {participants.map((participant, index) => (
-              <li key={participant.id}>
-                <span>
-                  {index + 1}. {participant.name}
-                </span>
-                {isAdminMode && (
-                  <Button
-                    icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
-                    onClickButton={handleOnClickDelete}
-                  />
+      </div>
+      <div className={styles.participantsContainer}>
+        <div className={styles.participantsList}>
+          <p className={styles.participants}>Popis prijavljenih</p>
+          {/* dodaj ako nema prijavljenih "Postani prvi prijavljeni ->" */}
+          {participants && (
+            <ul>
+              {participants.map((participant, index) => (
+                <li key={participant.id}>
+                  <span>
+                    {index + 1}. {participant.name}
+                  </span>
+                  {isAdminMode && (
+                    <Button
+                      icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
+                      onClickButton={handleOnClickDelete}
+                    />
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.FormContainer}
+          >
+            <div className={styles.FormGroup}>
+              <label className={styles.Label}>Naziv</label>
+              <input
+                {...register("title", {
+                  required: true,
+                  minLength: 3,
+                  maxLength: 50,
+                })}
+                className={styles.InputField}
+              />
+              {errors.title && (
+                <span className={styles.ErrorMessage}>Naziv je obavezan.</span>
+              )}
+            </div>
+            <div className={styles.FormGroupRow}>
+              <div className={styles.FormGroup}>
+                <label className={styles.Label}>Datum</label>
+                <input
+                  {...register("date", {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 50,
+                  })}
+                  className={styles.InputField}
+                />
+                {errors.date && (
+                  <span className={styles.ErrorMessage}>
+                    Datum je obavezan.
+                  </span>
                 )}
-              </li>
-            ))}
-          </ul>
-        )}
+              </div>
+            </div>
+            <Button type="submit" title="Potvrdi" />
+          </form>
+        </div>
       </div>
     </div>
   );
