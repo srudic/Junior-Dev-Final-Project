@@ -36,7 +36,7 @@ const Card = ({
 
   return (
     <div className={styles.card} onClick={() => openModal(element)}>
-      <div className={styles.column}>
+      <div className={styles.columnLeft}>
         <h2 className={styles.title}>{name}</h2>
         {address && city && (
           <p className={styles.subtitle}>
@@ -45,7 +45,7 @@ const Card = ({
         )}
         {date && <p className={styles.subtitle}> Datum: {date} </p>}
       </div>
-      <div className={styles.column}>
+      <div className={styles.columnRight}>
         {isAdminMode && !requestsFlag && (
           <Button
             title="IZBRIŠI"
@@ -55,15 +55,23 @@ const Card = ({
           />
         )}
         {isAdminMode && requestsFlag && (
-          <Button
-            title="ODOBRI"
-            titleColor="rgb(29, 143, 29)"
-            icon={<BsFillSendCheckFill size={20} color="rgb(29, 143, 29)" />}
-            onClickButton={handleOnClickDelete}
-          />
+          <>
+            <Button
+              title="ODOBRI"
+              titleColor="rgb(29, 143, 29)"
+              icon={<BsFillSendCheckFill size={20} color="rgb(29, 143, 29)" />}
+              onClickButton={handleOnClickDelete}
+            />
+            <Button
+              title="IZBRIŠI"
+              titleColor="#8B0000"
+              icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
+              onClickButton={handleOnClickDelete}
+            />
+          </>
         )}
       </div>
-      {activities && element && (
+      {activities && selectedActivity && (
         <Modal closeModal={closeModal} isOpen={isOpen}>
           <ActivityDetails
             name={element.name}

@@ -7,7 +7,13 @@
   justify-content: space-between;
 }
 
-.column {
+.columnLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.columnRight {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
