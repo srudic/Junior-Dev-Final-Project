@@ -1,0 +1,30 @@
+.buttonContainer {
+  display: inline-block;
+  margin: 10px;
+}
+
+button {
+  background-color: #f0f0f0; /* Light gray */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #dcdcdc;
+}
+
+button span {
+  margin-right: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
