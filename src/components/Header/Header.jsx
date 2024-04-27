@@ -8,8 +8,9 @@ import Modal from "../UI/Modal/Modal";
 import { FaCirclePlus } from "react-icons/fa6";
 import ActivityForm from "../ActivityForm/ActivityForm";
 import styles from "./Header.module.css";
+import AssociaionForm from "../AssociationForm/AssociationForm";
 
-const Header = ({ associationsFlag }) => {
+const Header = ({ associationsFlag, activitiesFlag }) => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [sortType, setSortType] = useState("");
 
@@ -29,8 +30,9 @@ const Header = ({ associationsFlag }) => {
       <div className={styles.FormGroup}>
         <select
           className={[styles.SelectField, styles.ScrollableDropdown].join(" ")}
+          onClick={handleChange}
         >
-          {!associationsFlag && (
+          {activitiesFlag && (
             <>
               <option value={"date-asc"}>Najnovije</option>
               <option value={"date-desc"}>Najstarije</option>
@@ -48,7 +50,8 @@ const Header = ({ associationsFlag }) => {
       />
       {isAddFormOpen && (
         <Modal closeModal={closeModal} isOpen={isAddFormOpen}>
-          <ActivityForm />
+          {activitiesFlag && <ActivityForm />}
+          {associationsFlag && <AssociaionForm />}
         </Modal>
       )}
     </div>

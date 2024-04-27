@@ -54,7 +54,7 @@ const Activities = () => {
   return (
     <Wrapper>
       <Heading title="Aktivnosti" />
-      <Header />
+      <Header activitiesFlag />
       <Cards data={ACTIVITIES} activities />
     </Wrapper>
   );
