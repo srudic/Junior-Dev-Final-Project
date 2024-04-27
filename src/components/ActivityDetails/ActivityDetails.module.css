@@ -50,6 +50,8 @@
   font-size: 14px;
   margin-left: 20px;
   color: gray;
+  display: flex;
+  align-items: center;
 }
 
 .participants {

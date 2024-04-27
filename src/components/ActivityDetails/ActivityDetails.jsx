@@ -1,5 +1,12 @@
 import styles from "./ActivityDetails.module.css";
+
 import { FaMapMarkerAlt } from "react-icons/fa";
+import { RiDeleteBin5Line } from "react-icons/ri";
+
+import { useContext } from "react";
+
+import Button from "../UI/Button/Button";
+import UserContext from "../../context/UserContext";
 
 const ActivityDetails = ({
   name,
@@ -8,6 +15,10 @@ const ActivityDetails = ({
   location,
   participants,
 }) => {
+  const { isAdminMode } = useContext(UserContext);
+  const handleOnClickDelete = () => {
+    console.log("Delete");
+  };
   //TODO
   //prikaz lokacije
   //prijava na aktivnost
@@ -27,13 +38,24 @@ const ActivityDetails = ({
           <span>{location}</span>
         </p>
         <p className={styles.participants}>Popis prijavljenih</p>
-        <ul>
-          {participants.map((participant, index) => (
-            <li key={participant.id}>
-              {index + 1}. {participant.name}
-            </li>
-          ))}
-        </ul>
+        {/* dodaj ako nema prijavljenih "Postani prvi prijavljeni ->" */}
+        {participants && (
+          <ul>
+            {participants.map((participant, index) => (
+              <li key={participant.id}>
+                <span>
+                  {index + 1}. {participant.name}
+                </span>
+                {isAdminMode && (
+                  <Button
+                    icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
+                    onClickButton={handleOnClickDelete}
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
