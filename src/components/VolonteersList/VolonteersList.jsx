@@ -10,6 +10,7 @@ import multiavatar from "@multiavatar/multiavatar/esm";
 const Volonteer = ({ name, city, jobs }) => {
   let avatarSVG = multiavatar(name);
   const { isAdminMode } = useContext(UserContext);
+
   return (
     <div className={styles.volonteerContainer}>
       <div
@@ -47,10 +48,10 @@ const VolonteersList = ({ data }) => {
       {data &&
         data.map((element) => (
           <Volonteer
-            name={element.name}
+            name={element.name_surname}
             city={element.city}
             key={element.id}
-            jobs={element.jobs}
+            jobs={element.activity_types}
           />
         ))}
     </div>
