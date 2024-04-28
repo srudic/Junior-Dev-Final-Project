@@ -38,3 +38,8 @@
   display: flex;
   align-items: center;
 }
+
+.adminButtons {
+  display: flex;
+  justify-content: space-between;
+}
