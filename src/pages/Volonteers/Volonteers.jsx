@@ -1,3 +1,5 @@
+import Header from "../../components/Header/Header";
+import Heading from "../../components/UI/Heading/Heading";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 import VolonteersList from "../../components/VolonteersList/VolonteersList";
 
@@ -36,6 +38,8 @@ const VOLONTEERS = [
 const Volonteers = () => {
   return (
     <Wrapper>
+      <Heading title="Volonteri" />
+      <Header volonteersFlag />
       <VolonteersList data={VOLONTEERS} />
     </Wrapper>
   );

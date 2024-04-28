@@ -1,16 +1,13 @@
 import { useState } from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
 import { FaCirclePlus } from "react-icons/fa6";
 import ActivityForm from "../ActivityForm/ActivityForm";
 import styles from "./Header.module.css";
 import AssociaionForm from "../AssociationForm/AssociationForm";
+import VolonteerForm from "../VolonteerForm/VolonteerForm";
 
-const Header = ({ associationsFlag, activitiesFlag }) => {
+const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [sortType, setSortType] = useState("");
 
@@ -18,7 +15,6 @@ const Header = ({ associationsFlag, activitiesFlag }) => {
     setSortType(event.target.value);
   };
   const handleOpenAddForm = () => {
-    console.log("Dodaj");
     setIsAddFormOpen(true);
   };
 
@@ -52,6 +48,7 @@ const Header = ({ associationsFlag, activitiesFlag }) => {
         <Modal closeModal={closeModal} isOpen={isAddFormOpen}>
           {activitiesFlag && <ActivityForm />}
           {associationsFlag && <AssociaionForm />}
+          {volonteersFlag && <VolonteerForm />}
         </Modal>
       )}
     </div>
