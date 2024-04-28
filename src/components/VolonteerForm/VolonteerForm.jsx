@@ -1,5 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 import UserContext from "../../context/UserContext";
 import towns from "../../assets/hr.json";
@@ -26,15 +29,25 @@ const VolonteerForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { activityTypes } = useContext(UserContext);
+  const { activityTypes, getVolonteersList } = useContext(UserContext);
 
   const sortedTowns = sortArrayOfObjectsByCity(towns);
   const filteredData = sortedTowns.filter(
     (item) => item.admin_name === "Splitsko-Dalmatinska Županija"
   );
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    try {
+      await addDoc(collection(db, "volonteers"), {
+        name_surname: data.name,
+        city: data.town,
+        activity_types: data.volonteer_jobs,
+      });
+      getVolonteersList();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -68,7 +81,7 @@ const VolonteerForm = () => {
                       type="checkbox"
                       id={job.id}
                       {...register("volonteer_jobs")}
-                      value={job.value}
+                      value={job.id}
                       className={styles.InputField}
                     />
                     <label htmlFor={job.id} className={styles.RadioButtonLabel}>

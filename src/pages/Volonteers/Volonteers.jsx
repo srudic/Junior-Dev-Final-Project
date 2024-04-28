@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import Header from "../../components/Header/Header";
 import Heading from "../../components/UI/Heading/Heading";
@@ -10,30 +10,29 @@ const Volonteers = () => {
   const { activityTypes, getActivityTypes, getVolonteersList, volonteersList } =
     useContext(UserContext);
 
+  const [volonteerListToDisplay, setVolonteerListToDisplay] = useState([]);
+
   useEffect(() => {
     getActivityTypes();
     getVolonteersList();
   }, []);
 
-  const volonteerListToDisplay = [];
+  // Use functional update to ensure state consistency
+  useEffect(() => {
+    setVolonteerListToDisplay(() => {
+      // Map through volonteersList to create the updated list
+      const updatedList = volonteersList.map((volunteer) => {
+        // Find the corresponding activity type object
+        const newActivityTypes = activityTypes.filter(({ id }) =>
+          volunteer.activity_types.includes(id)
+        );
 
-  volonteersList.forEach((volunteer) => {
-    // Find the corresponding activity type object
-    const activityType = activityTypes.find(
-      (type) => type.id === volunteer["activity_types"]
-    );
+        return { ...volunteer, activity_types: newActivityTypes };
+      });
 
-    // If the activity type is found, add the 'activity_types' array with id and name keys
-    if (activityType) {
-      const updatedVolunteer = {
-        ...volunteer,
-        activity_types: [
-          { id: volunteer["activity_types"], name: activityType.name },
-        ],
-      };
-      volonteerListToDisplay.push(updatedVolunteer);
-    }
-  });
+      return updatedList;
+    });
+  }, [volonteersList]);
 
   return (
     <Wrapper>
