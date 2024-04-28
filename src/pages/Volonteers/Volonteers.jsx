@@ -17,7 +17,7 @@ const VOLONTEERS = [
   },
   {
     id: 2,
-    name: "Sanja Rudić",
+    name: "Marin Rudić",
     city: "Kaštel Novi",
     jobs: [
       { id: 1, name: "Edukacija" },
@@ -27,6 +27,15 @@ const VOLONTEERS = [
   {
     id: 3,
     name: "Sanja Rudić",
+    city: "Kaštel Novi",
+    jobs: [
+      { id: 1, name: "Edukacija" },
+      { id: 2, name: "Razno" },
+    ],
+  },
+  {
+    id: 4,
+    name: "Marin Rudić",
     city: "Kaštel Novi",
     jobs: [
       { id: 1, name: "Edukacija" },

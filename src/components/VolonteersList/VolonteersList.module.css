@@ -4,9 +4,10 @@
 }
 
 .volonteerContainer {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
+  /* border: 1px solid #ccc; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem 0.5rem;
   width: 240px;
   margin: 10px;
   display: flex;
@@ -16,6 +17,9 @@
 
 .title {
   color: rgb(26, 66, 94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title h3 {
@@ -28,6 +32,8 @@
 }
 
 .jobs {
+  margin-top: 10px;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -35,6 +41,8 @@
 }
 
 .jobs p {
+  margin: 0;
+  padding: 0;
   display: flex;
   align-items: center;
 }
