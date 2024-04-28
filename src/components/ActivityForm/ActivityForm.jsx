@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
 
 import towns from "../../assets/hr.json";
 import styles from "./ActivityForm.module.css";
+import UserContext from "../../context/UserContext";
 
 const sortArrayOfObjectsByCity = (array) => {
   return array.sort((a, b) => {
@@ -24,8 +28,9 @@ const ActivityForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
+
+  const { associationsList, getActivitiesList } = useContext(UserContext);
 
   const [associationOption, setAssociationOption] = useState("");
 
@@ -38,8 +43,19 @@ const ActivityForm = () => {
     setAssociationOption(e.target.value);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      await addDoc(collection(db, "activities"), {
+        association: data.association,
+        date: data.date,
+        description: data.description,
+        location: data.town,
+        name: data.title,
+      });
+      getActivitiesList();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -100,7 +116,6 @@ const ActivityForm = () => {
             {...register("description", {
               required: false,
               minLength: 5,
-              maxLength: 100,
             })}
             className={styles.InputField}
           />
@@ -160,9 +175,9 @@ const ActivityForm = () => {
                   <option value="defaultAssociation" disabled>
                     Izaberi udrugu
                   </option>
-                  {/* {data.map((town) => (
-                    <option value={town.code}>{town.city}</option>
-                  ))} */}
+                  {associationsList.map((association) => (
+                    <option value={association.id}>{association.name}</option>
+                  ))}
                 </select>
               </div>
             )}
