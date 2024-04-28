@@ -1,12 +1,17 @@
-import { useState } from "react";
-import styles from "./Cards.module.css";
-import Button from "../../UI/Button/Button";
-import Modal from "../../UI/Modal/Modal";
-import ActivityDetails from "../../ActivityDetails/ActivityDetails";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../../../firebase-config";
+
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { BsFillSendCheckFill } from "react-icons/bs";
+
+import ActivityDetails from "../../ActivityDetails/ActivityDetails";
+import Button from "../../UI/Button/Button";
+import Modal from "../../UI/Modal/Modal";
 import UserContext from "../../../context/UserContext";
+
+import styles from "./Cards.module.css";
 
 const Card = ({
   element,
@@ -16,10 +21,11 @@ const Card = ({
   requestsFlag,
   date,
   activities,
+  id,
 }) => {
-  const { isAdminMode } = useContext(UserContext);
-  const handleOnClickDelete = () => {
-    console.log("Delete");
+  const { isAdminMode, getAssociationsRequestList } = useContext(UserContext);
+  const handleOnClickApprove = () => {
+    console.log("Odobri");
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +38,11 @@ const Card = ({
   const closeModal = () => {
     setSelectedActivity(null);
     setIsOpen(false);
+  };
+
+  const deleteApprovalRequest = async (element) => {
+    await deleteDoc(doc(db, "approval-requests", element.id));
+    getAssociationsRequestList();
   };
 
   return (
@@ -51,7 +62,7 @@ const Card = ({
             title="IZBRIŠI"
             titleColor="#8B0000"
             icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
-            onClickButton={handleOnClickDelete}
+            onClickButton={() => console.log("Approve")}
           />
         )}
         {isAdminMode && requestsFlag && (
@@ -60,13 +71,13 @@ const Card = ({
               title="ODOBRI"
               titleColor="rgb(29, 143, 29)"
               icon={<BsFillSendCheckFill size={20} color="rgb(29, 143, 29)" />}
-              onClickButton={handleOnClickDelete}
+              onClickButton={handleOnClickApprove}
             />
             <Button
               title="IZBRIŠI"
               titleColor="#8B0000"
               icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
-              onClickButton={handleOnClickDelete}
+              onClickButton={() => deleteApprovalRequest(element)}
             />
           </>
         )}
@@ -93,6 +104,7 @@ const Cards = ({ data, requestsFlag, activities }) => {
       {data &&
         data.map((element) => (
           <Card
+            id={element.id}
             element={element}
             name={element.name}
             address={element.address}
