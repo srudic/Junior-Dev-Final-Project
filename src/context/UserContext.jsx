@@ -4,14 +4,17 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase-config";
 
 const UserContext = createContext({
+  activitiesList: [],
   activityTypes: [],
   associationsList: [],
   associationsRequestList: [],
   isAdminMode: Boolean,
+  getActivitiesList: () => {},
   getActivityTypes: () => {},
   getAssociationsList: () => {},
   getAssociationsRequestList: () => {},
   getVolonteersList: () => {},
+  setActivitiesList: () => {},
   setActivityTypes: () => {},
   setAssociationsList: () => {},
   setAssociationsRequestList: () => {},
@@ -26,6 +29,7 @@ export function UserContextProvider({ children }) {
   const [associationsRequestList, setAssociationsRequestList] = useState([]);
   const [activityTypes, setActivityTypes] = useState([]);
   const [volonteersList, setVolonteersList] = useState([]);
+  const [activitiesList, setActivitiesList] = useState([]);
 
   const getAssociationsList = async () => {
     try {
@@ -79,10 +83,25 @@ export function UserContextProvider({ children }) {
     }
   };
 
+  const getActivitiesList = async () => {
+    try {
+      const data = await getDocs(collection(db, "activities"));
+      const responsedData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setActivitiesList(responsedData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const value = {
+    activitiesList,
     activityTypes,
     associationsList,
     associationsRequestList,
+    getActivitiesList,
     getActivityTypes,
     getAssociationsList,
     getAssociationsRequestList,
