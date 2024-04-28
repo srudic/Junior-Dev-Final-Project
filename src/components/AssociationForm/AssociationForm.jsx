@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase-config";
+
+import UserContext from "../../context/UserContext";
 
 import towns from "../../assets/hr.json";
 import styles from "./AssociationForm.module.css";
@@ -26,13 +30,27 @@ const AssociaionForm = () => {
     formState: { errors },
   } = useForm();
 
+  const { getAssociationsRequestList } = useContext(UserContext);
+
   const sortedTowns = sortArrayOfObjectsByCity(towns);
   const filteredData = sortedTowns.filter(
     (item) => item.admin_name === "Splitsko-Dalmatinska Županija"
   );
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    try {
+      await addDoc(collection(db, "approval-requests"), {
+        name: data.name,
+        address: data.address,
+        city: data.city,
+      });
+      getAssociationsRequestList();
+      // TODO
+      // Dodaj poruku nakon uspješno poslanog zahtjeva
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -41,7 +59,7 @@ const AssociaionForm = () => {
         <div className={styles.FormGroup}>
           <label className={styles.Label}>Naziv</label>
           <input
-            {...register("title", {
+            {...register("name", {
               required: true,
               minLength: 3,
               maxLength: 50,
@@ -70,7 +88,7 @@ const AssociaionForm = () => {
           <div className={styles.FormGroup}>
             <label className={styles.Label}>Grad</label>
             <select
-              {...register("town")}
+              {...register("city")}
               className={[styles.SelectField, styles.ScrollableDropdown].join(
                 " "
               )}
@@ -79,8 +97,8 @@ const AssociaionForm = () => {
               <option value="defaultTown" disabled>
                 Izaberi grad
               </option>
-              {filteredData.map((town) => (
-                <option value={town.code}>{town.city}</option>
+              {filteredData.map((city) => (
+                <option value={city.code}>{city.city}</option>
               ))}
             </select>
           </div>
