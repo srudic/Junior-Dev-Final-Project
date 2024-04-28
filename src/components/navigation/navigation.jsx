@@ -14,6 +14,9 @@ const NAV_TABS = [
 const Navigation = () => {
   return (
     <div className={styles.Navigation}>
+      <h2>
+        Volonteer<span>Ko</span>
+      </h2>
       <div className={styles.NavTabs}>
         {NAV_TABS.map((tab) => (
           <div key={tab.title} className={styles.Tab}>
@@ -21,7 +24,12 @@ const Navigation = () => {
               to={`/${tab.name}`}
               style={({ isActive }) => {
                 return {
-                  borderBottom: isActive ? "1px solid gray" : "",
+                  // borderBottom: isActive ? "1px solid gray" : "",
+                  backgroundColor: isActive ? "#0D47A1" : "white",
+                  color: isActive ? "white" : "#0D47A1",
+                  padding: "10px 15px",
+                  borderRadius: "20px",
+                  fontWeight: "bold",
                 };
               }}
             >

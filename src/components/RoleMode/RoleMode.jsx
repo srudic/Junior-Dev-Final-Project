@@ -38,7 +38,7 @@ const RoleMode = () => {
         inputProps={{ "aria-label": "controlled" }}
       />
       <div className={styles.Icon}>
-        <GrUserAdmin size={20} />
+        <GrUserAdmin size={20} color={isAdminMode ? "#0d47a1" : "gray"} />
       </div>
     </div>
   );
