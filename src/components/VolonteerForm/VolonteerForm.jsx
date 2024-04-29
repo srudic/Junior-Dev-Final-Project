@@ -23,7 +23,7 @@ const sortArrayOfObjectsByCity = (array) => {
   });
 };
 
-const VolonteerForm = () => {
+const VolonteerForm = ({ closeModal }) => {
   const {
     register,
     handleSubmit,
@@ -45,6 +45,7 @@ const VolonteerForm = () => {
         activity_types: data.volonteer_jobs,
       });
       getVolonteersList();
+      closeModal();
     } catch (err) {
       console.error(err);
     }
