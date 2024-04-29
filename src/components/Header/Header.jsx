@@ -48,7 +48,7 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
         <Modal closeModal={closeModal} isOpen={isAddFormOpen}>
           {activitiesFlag && <ActivityForm />}
           {associationsFlag && <AssociaionForm />}
-          {volonteersFlag && <VolonteerForm />}
+          {volonteersFlag && <VolonteerForm closeModal={closeModal} />}
         </Modal>
       )}
     </div>
