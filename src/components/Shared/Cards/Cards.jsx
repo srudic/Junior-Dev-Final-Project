@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-import { doc, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../firebase-config";
 
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -21,12 +21,13 @@ const Card = ({
   requestsFlag,
   date,
   activities,
-  id,
 }) => {
-  const { isAdminMode, getAssociationsRequestList } = useContext(UserContext);
-  const handleOnClickApprove = () => {
-    console.log("Odobri");
-  };
+  const {
+    isAdminMode,
+    getAssociationsRequestList,
+    getAssociationsList,
+    getActivitiesList,
+  } = useContext(UserContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState(null);
@@ -41,8 +42,45 @@ const Card = ({
   };
 
   const deleteApprovalRequest = async (element) => {
-    await deleteDoc(doc(db, "approval-requests", element.id));
-    getAssociationsRequestList();
+    try {
+      await deleteDoc(doc(db, "approval-requests", element.id));
+      getAssociationsRequestList();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const approveRequest = async (element) => {
+    try {
+      await addDoc(collection(db, "associations"), {
+        name: element.name,
+        address: element.address,
+        city: element.city,
+      });
+      deleteApprovalRequest(element);
+      getAssociationsRequestList();
+      getAssociationsList();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteAssociation = async (element) => {
+    try {
+      await deleteDoc(doc(db, "associations", element.id));
+      getAssociationsList();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const deleteActivity = async (element) => {
+    try {
+      await deleteDoc(doc(db, "activities", element.id));
+      getActivitiesList();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -62,7 +100,11 @@ const Card = ({
             title="IZBRIŠI"
             titleColor="#8B0000"
             icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
-            onClickButton={() => console.log("Approve")}
+            onClickButton={
+              activities
+                ? () => deleteActivity(element)
+                : () => deleteAssociation(element)
+            }
           />
         )}
         {isAdminMode && requestsFlag && (
@@ -71,7 +113,7 @@ const Card = ({
               title="ODOBRI"
               titleColor="rgb(29, 143, 29)"
               icon={<BsFillSendCheckFill size={20} color="rgb(29, 143, 29)" />}
-              onClickButton={handleOnClickApprove}
+              onClickButton={() => approveRequest(element)}
             />
             <Button
               title="IZBRIŠI"
