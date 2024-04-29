@@ -23,7 +23,7 @@ const sortArrayOfObjectsByCity = (array) => {
   });
 };
 
-const AssociaionForm = () => {
+const AssociaionForm = ({ handleApprovalRequestSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -48,6 +48,7 @@ const AssociaionForm = () => {
       getAssociationsRequestList();
       // TODO
       // Dodaj poruku nakon uspješno poslanog zahtjeva
+      handleApprovalRequestSuccess();
     } catch (err) {
       console.error(err);
     }

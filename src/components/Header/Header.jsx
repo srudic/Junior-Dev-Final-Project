@@ -6,10 +6,13 @@ import ActivityForm from "../ActivityForm/ActivityForm";
 import styles from "./Header.module.css";
 import AssociaionForm from "../AssociationForm/AssociationForm";
 import VolonteerForm from "../VolonteerForm/VolonteerForm";
+import ApprovalMessage from "../ApprovalMessage/ApprovalMessage";
 
 const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [sortType, setSortType] = useState("");
+  const [isApprovalRequestSuccessful, setIsApprovalRequestSuccessful] =
+    useState(false);
 
   const handleChange = (event) => {
     setSortType(event.target.value);
@@ -20,7 +23,14 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
 
   const closeModal = () => {
     setIsAddFormOpen(false);
+    setIsApprovalRequestSuccessful(false);
   };
+
+  const handleApprovalRequestSuccess = () => {
+    setIsApprovalRequestSuccessful(true);
+  };
+
+  console.log(isApprovalRequestSuccessful);
   return (
     <div className={styles.headerContainer}>
       <div className={styles.FormGroup}>
@@ -47,8 +57,15 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
       {isAddFormOpen && (
         <Modal closeModal={closeModal} isOpen={isAddFormOpen}>
           {activitiesFlag && <ActivityForm />}
-          {associationsFlag && <AssociaionForm />}
+          {associationsFlag && !isApprovalRequestSuccessful && (
+            <AssociaionForm
+              handleApprovalRequestSuccess={handleApprovalRequestSuccess}
+            />
+          )}
           {volonteersFlag && <VolonteerForm closeModal={closeModal} />}
+          {isApprovalRequestSuccessful && (
+            <ApprovalMessage closeModal={closeModal} />
+          )}
         </Modal>
       )}
     </div>
