@@ -1,5 +1,8 @@
 import styles from "./ActivityDetails.module.css";
 
+import { updateDoc, doc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { db } from "../../firebase-config";
+
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
@@ -10,6 +13,7 @@ import Button from "../UI/Button/Button";
 import UserContext from "../../context/UserContext";
 
 const ActivityDetails = ({
+  id,
   name,
   date,
   association,
@@ -22,12 +26,36 @@ const ActivityDetails = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { isAdminMode } = useContext(UserContext);
-  const handleOnClickDelete = () => {
-    console.log("Delete");
+  const { isAdminMode, getActivitiesList, activitiesList } =
+    useContext(UserContext);
+
+  const handleOnClickDelete = async (participant) => {
+    try {
+      await updateDoc(doc(db, "activities", id), {
+        participants: arrayRemove({
+          name_surname: participant.name_surname,
+          phone: participant.phone,
+        }),
+      });
+      getActivitiesList();
+    } catch (err) {
+      console.error(err);
+    }
   };
-  const onSubmit = (data) => {
-    console.log(data);
+
+  // [{ name_surname: data.name_surname, phone: data.phone }]
+  const onSubmit = async (data) => {
+    try {
+      await updateDoc(doc(db, "activities", id), {
+        participants: arrayUnion({
+          name_surname: data.name_surname,
+          phone: data.phone,
+        }),
+      });
+      getActivitiesList();
+    } catch (err) {
+      console.error(err);
+    }
   };
   //TODO
   //prikaz lokacije
@@ -58,12 +86,12 @@ const ActivityDetails = ({
               {participants.map((participant, index) => (
                 <li key={participant.id}>
                   <span>
-                    {index + 1}. {participant.name}
+                    {index + 1}. {participant.name_surname}
                   </span>
                   {isAdminMode && (
                     <Button
                       icon={<RiDeleteBin5Line size={20} color="#8B0000" />}
-                      onClickButton={handleOnClickDelete}
+                      onClickButton={() => handleOnClickDelete(participant)}
                     />
                   )}
                 </li>

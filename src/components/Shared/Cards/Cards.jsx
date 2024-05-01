@@ -127,6 +127,7 @@ const Card = ({
       {activities && selectedActivity && (
         <Modal closeModal={closeModal} isOpen={isOpen}>
           <ActivityDetails
+            id={element.id}
             name={element.name}
             date={element.date}
             association={element.association}
