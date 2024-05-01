@@ -8,12 +8,12 @@ const LandingMoto = () => {
       <div className={styles.motoContainer}>
         <h2>
           Želiš postati
-          <span>
-            Voloteer<span>Ko</span>?
+          <span className={styles.titleBlue}>
+            Voloteer<span className={styles.titleGrey}>Ko</span>
           </span>
-          Ko?
+          ? Ko?
         </h2>
-        <h2>Voloteer</h2>
+        <h2>Voloteeer!</h2>
         <img src={volonterIcon} alt="volonteerIcon" />
       </div>
       <h3>Na pravom si mjestu.</h3>
