@@ -77,9 +77,10 @@ const ActivityDetails = ({
             className={styles.FormContainer}
           >
             <div className={styles.FormGroup}>
-              <label className={styles.Label}>Naziv</label>
+              <label className={styles.Label}>Ime i prezime</label>
               <input
-                {...register("title", {
+                type="text"
+                {...register("name_surname", {
                   required: true,
                   minLength: 3,
                   maxLength: 50,
@@ -87,28 +88,36 @@ const ActivityDetails = ({
                 className={styles.InputField}
               />
               {errors.title && (
-                <span className={styles.ErrorMessage}>Naziv je obavezan.</span>
+                <span className={styles.ErrorMessage}>
+                  Ime i prezime je obavezno.
+                </span>
               )}
             </div>
             <div className={styles.FormGroupRow}>
               <div className={styles.FormGroup}>
-                <label className={styles.Label}>Datum</label>
+                <label className={styles.Label}>Kontakt</label>
                 <input
-                  {...register("date", {
+                  type="tel"
+                  placeholder="0999999999"
+                  {...register("phone", {
                     required: true,
-                    minLength: 3,
-                    maxLength: 50,
+                    minLength: 8,
+                    maxLength: 14,
                   })}
                   className={styles.InputField}
                 />
                 {errors.date && (
                   <span className={styles.ErrorMessage}>
-                    Datum je obavezan.
+                    Kontakt je obavezan.
                   </span>
                 )}
               </div>
             </div>
-            <Button type="submit" title="Potvrdi" />
+            <Button
+              type="submit"
+              title="Potvrdi"
+              titleColor="rgb(29, 143, 29)"
+            />
           </form>
         </div>
       </div>
