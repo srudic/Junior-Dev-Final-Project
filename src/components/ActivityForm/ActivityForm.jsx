@@ -23,7 +23,7 @@ const sortArrayOfObjectsByCity = (array) => {
   });
 };
 
-const ActivityForm = () => {
+const ActivityForm = ({ closeModal }) => {
   const {
     register,
     handleSubmit,
@@ -51,8 +51,10 @@ const ActivityForm = () => {
         description: data.description,
         location: data.town,
         name: data.title,
+        participants: [],
       });
       getActivitiesList();
+      closeModal();
     } catch (err) {
       console.error(err);
     }

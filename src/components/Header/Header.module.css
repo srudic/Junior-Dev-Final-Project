@@ -1,7 +1,8 @@
 .headerContainer {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .FormGroup {

@@ -7,6 +7,10 @@ import styles from "./Header.module.css";
 import AssociaionForm from "../AssociationForm/AssociationForm";
 import VolonteerForm from "../VolonteerForm/VolonteerForm";
 import ApprovalMessage from "../ApprovalMessage/ApprovalMessage";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -30,10 +34,9 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
     setIsApprovalRequestSuccessful(true);
   };
 
-  console.log(isApprovalRequestSuccessful);
   return (
     <div className={styles.headerContainer}>
-      <div className={styles.FormGroup}>
+      {/* <div className={styles.FormGroup}>
         <select
           className={[styles.SelectField, styles.ScrollableDropdown].join(" ")}
           onClick={handleChange}
@@ -47,7 +50,25 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
           <option value={"city-asc"}>Gradovi a-z</option>
           <option value={"city-desc"}>Gradovi z-a</option>
         </select>
-      </div>
+      </div> */}
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Sortiraj</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={sortType}
+          onChange={handleChange}
+          label="Age"
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Najnovije</MenuItem>
+          <MenuItem value={20}>Najstarije</MenuItem>
+          <MenuItem value={30}>Gradovi a-z</MenuItem>
+          <MenuItem value={30}>Gradovi z-a</MenuItem>
+        </Select>
+      </FormControl>
       <Button
         title="DODAJ"
         titleColor="#00b300"
@@ -56,7 +77,7 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
       />
       {isAddFormOpen && (
         <Modal closeModal={closeModal} isOpen={isAddFormOpen}>
-          {activitiesFlag && <ActivityForm />}
+          {activitiesFlag && <ActivityForm closeModal={closeModal} />}
           {associationsFlag && !isApprovalRequestSuccessful && (
             <AssociaionForm
               handleApprovalRequestSuccess={handleApprovalRequestSuccess}
