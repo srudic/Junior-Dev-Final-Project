@@ -41,7 +41,7 @@ const VolonteerForm = ({ closeModal }) => {
     try {
       await addDoc(collection(db, "volonteers"), {
         name_surname: data.name,
-        city: data.town,
+        city: data.city,
         activity_types: data.volonteer_jobs,
       });
       getVolonteersList();
@@ -97,7 +97,7 @@ const VolonteerForm = ({ closeModal }) => {
           <div className={styles.FormGroup}>
             <label className={styles.Label}>Grad</label>
             <select
-              {...register("town")}
+              {...register("city")}
               className={[styles.SelectField, styles.ScrollableDropdown].join(
                 " "
               )}
@@ -106,9 +106,9 @@ const VolonteerForm = ({ closeModal }) => {
               <option value="defaultTown" disabled>
                 Izaberi grad
               </option>
-              {filteredData.map((town) => (
-                <option value={town.code} key={Math.random()}>
-                  {town.city}
+              {filteredData.map((city) => (
+                <option value={city.code} key={Math.random()}>
+                  {city.city}
                 </option>
               ))}
             </select>

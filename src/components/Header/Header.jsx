@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -12,15 +12,52 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import { sortArray } from "../../utils/arrayManipulation";
+import UserContext from "../../context/UserContext";
+import MultipleSelectCheckmarks from "../UI/MultipleSelect";
+
 const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [sortType, setSortType] = useState("");
   const [isApprovalRequestSuccessful, setIsApprovalRequestSuccessful] =
     useState(false);
+  const {
+    setAssociationsList,
+    associationsList,
+    setActivitiesList,
+    activitiesList,
+    setVolonteersList,
+    volonteersList,
+  } = useContext(UserContext);
+  console.log(activitiesList);
 
   const handleChange = (event) => {
     setSortType(event.target.value);
+
+    if (associationsFlag)
+      setAssociationsList(
+        sortArray({
+          array: associationsList,
+          sortBy: event.target.value,
+        })
+      );
+    else if (activitiesFlag) {
+      setActivitiesList(
+        sortArray({
+          array: activitiesList,
+          sortBy: event.target.value,
+        })
+      );
+    } else {
+      setVolonteersList(
+        sortArray({
+          array: volonteersList,
+          sortBy: event.target.value,
+        })
+      );
+    }
   };
+
   const handleOpenAddForm = () => {
     setIsAddFormOpen(true);
   };
@@ -36,21 +73,6 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
 
   return (
     <div className={styles.headerContainer}>
-      {/* <div className={styles.FormGroup}>
-        <select
-          className={[styles.SelectField, styles.ScrollableDropdown].join(" ")}
-          onClick={handleChange}
-        >
-          {activitiesFlag && (
-            <>
-              <option value={"date-asc"}>Najnovije</option>
-              <option value={"date-desc"}>Najstarije</option>
-            </>
-          )}
-          <option value={"city-asc"}>Gradovi a-z</option>
-          <option value={"city-desc"}>Gradovi z-a</option>
-        </select>
-      </div> */}
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Sortiraj</InputLabel>
         <Select
@@ -63,12 +85,17 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Najnovije</MenuItem>
-          <MenuItem value={20}>Najstarije</MenuItem>
-          <MenuItem value={30}>Gradovi a-z</MenuItem>
-          <MenuItem value={30}>Gradovi z-a</MenuItem>
+          {activitiesFlag && (
+            <MenuItem value={"creationdate-asc"}>Najnovije</MenuItem>
+          )}
+          {activitiesFlag && (
+            <MenuItem value={"creationdate-desc"}>Najstarije</MenuItem>
+          )}
+          <MenuItem value={"city-asc"}>Gradovi a-z</MenuItem>
+          <MenuItem value={"city-desc"}>Gradovi z-a</MenuItem>
         </Select>
       </FormControl>
+      {volonteersFlag && <MultipleSelectCheckmarks />}
       <Button
         title="DODAJ"
         titleColor="#00b300"

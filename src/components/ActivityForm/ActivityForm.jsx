@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "../../firebase-config";
 
 import towns from "../../assets/hr.json";
@@ -49,9 +49,10 @@ const ActivityForm = ({ closeModal }) => {
         association: data.association,
         date: data.date,
         description: data.description,
-        location: data.town,
+        city: data.city,
         name: data.title,
         participants: [],
+        creationdate: Timestamp.fromDate(new Date()),
       });
       getActivitiesList();
       closeModal();
@@ -96,7 +97,7 @@ const ActivityForm = ({ closeModal }) => {
           <div className={styles.FormGroup}>
             <label className={styles.Label}>Lokacija</label>
             <select
-              {...register("town")}
+              {...register("city")}
               className={[styles.SelectField, styles.ScrollableDropdown].join(
                 " "
               )}
@@ -105,8 +106,8 @@ const ActivityForm = ({ closeModal }) => {
               <option value="defaultTown" disabled>
                 Izaberi grad
               </option>
-              {filteredData.map((town) => (
-                <option value={town.code}>{town.city}</option>
+              {filteredData.map((city) => (
+                <option value={city.code}>{city.city}</option>
               ))}
             </select>
           </div>
@@ -123,7 +124,7 @@ const ActivityForm = ({ closeModal }) => {
           />
           {errors.description && (
             <span className={styles.ErrorMessage}>
-              Opis treba imati od 5 do 100 slova.{" "}
+              Opis treba imati od 5 do 100 slova.
             </span>
           )}
         </div>
@@ -184,8 +185,8 @@ const ActivityForm = ({ closeModal }) => {
               </div>
             )}
           </div>
-          {errors.paymentMethod && (
-            <span className={styles.ErrorMessage}>Izabri Da ili Ne.</span>
+          {errors.association && (
+            <span className={styles.ErrorMessage}>Označite odabir udruge.</span>
           )}
         </div>
 

@@ -20,6 +20,7 @@ const UserContext = createContext({
   setAssociationsRequestList: () => {},
   setIsAdminMode: () => {},
   setVolonteersList: () => {},
+  sortBy: () => {},
   volonteersList: [],
 });
 
@@ -109,6 +110,9 @@ export function UserContextProvider({ children }) {
     isAdminMode,
     setIsAdminMode,
     volonteersList,
+    setAssociationsList,
+    setVolonteersList,
+    setActivitiesList,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
