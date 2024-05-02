@@ -8,6 +8,8 @@ import UserContext from "../../context/UserContext";
 import towns from "../../assets/hr.json";
 import styles from "./VolonteerForm.module.css";
 
+import { ACTIVITY_TYPES } from "../../utils/constants";
+
 const sortArrayOfObjectsByCity = (array) => {
   return array.sort((a, b) => {
     const cityA = a.city.toLowerCase();
@@ -29,7 +31,7 @@ const VolonteerForm = ({ closeModal }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { activityTypes, getVolonteersList } = useContext(UserContext);
+  const { getVolonteersList } = useContext(UserContext);
 
   const sortedTowns = sortArrayOfObjectsByCity(towns);
   const filteredData = sortedTowns.filter(
@@ -37,7 +39,7 @@ const VolonteerForm = ({ closeModal }) => {
   );
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
       await addDoc(collection(db, "volonteers"), {
         name_surname: data.name,
@@ -76,7 +78,7 @@ const VolonteerForm = ({ closeModal }) => {
 
             <div className={styles.FormGroupRow}>
               <div className={styles.RadioButtonGroup}>
-                {activityTypes.map((job) => (
+                {ACTIVITY_TYPES.map((job) => (
                   <div className={styles.RadioButtonContainer} key={job.id}>
                     <input
                       type="checkbox"
