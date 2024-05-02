@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
 import Navigation from "./components/navigation/navigation";
+import Footer from "./components/Footer/Footer";
 
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Volonteers from "./pages/Volonteers/Volonteers";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/aktivnosti" element={<Activities />} />
         <Route path="/udruge" element={<Associations />} />
       </Routes>
+      <Footer />
     </>
   );
 }
