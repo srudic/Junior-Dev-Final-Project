@@ -3,11 +3,14 @@ import { getDocs, collection } from "firebase/firestore";
 
 import { db } from "../firebase-config";
 
+import { ACTIVITY_TYPES } from "../utils/constants";
+
 const UserContext = createContext({
   activitiesList: [],
   associationsList: [],
   associationsRequestList: [],
   isAdminMode: Boolean,
+  tag: [],
   getActivitiesList: () => {},
   getAssociationsList: () => {},
   getAssociationsRequestList: () => {},
@@ -17,6 +20,7 @@ const UserContext = createContext({
   setAssociationsList: () => {},
   setAssociationsRequestList: () => {},
   setIsAdminMode: () => {},
+  setTag: () => {},
   setVolonteersList: () => {},
   sortBy: () => {},
   volonteersList: [],
@@ -28,6 +32,7 @@ export function UserContextProvider({ children }) {
   const [associationsRequestList, setAssociationsRequestList] = useState([]);
   const [volonteersList, setVolonteersList] = useState([]);
   const [activitiesList, setActivitiesList] = useState([]);
+  const [tag, setTag] = useState([]);
 
   const getAssociationsList = async () => {
     try {
@@ -58,10 +63,25 @@ export function UserContextProvider({ children }) {
   const getVolonteersList = async () => {
     try {
       const data = await getDocs(collection(db, "volonteers"));
-      const responsedData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+      const responsedData = data.docs.map((doc) => {
+        const volunteerData = {
+          ...doc.data(),
+          id: doc.id,
+        };
+
+        // Find the corresponding activity type object
+        const newActivityTypes = ACTIVITY_TYPES.filter(({ id }) =>
+          volunteerData.activity_types.includes(id)
+        );
+
+        volunteerData.activity_types = newActivityTypes;
+
+        // return populated volunteer object
+        return volunteerData;
+      });
+
+      // console.log(responsedData);
+
       setVolonteersList(responsedData);
     } catch (err) {
       console.error(err);
@@ -91,10 +111,12 @@ export function UserContextProvider({ children }) {
     getVolonteersList,
     isAdminMode,
     setIsAdminMode,
-    volonteersList,
     setAssociationsList,
     setVolonteersList,
     setActivitiesList,
+    setTag,
+    tag,
+    volonteersList,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

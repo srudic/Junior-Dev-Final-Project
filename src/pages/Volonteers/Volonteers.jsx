@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 
+import Filter from "../../components/Filter/Fitler";
 import Header from "../../components/Header/Header";
 import Heading from "../../components/UI/Heading/Heading";
 import UserContext from "../../context/UserContext";
 import VolonteersList from "../../components/VolonteersList/VolonteersList";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
-import { ACTIVITY_TYPES } from "../../utils/constants";
-
 const Volonteers = () => {
-  const { getVolonteersList, volonteersList } = useContext(UserContext);
+  const { getVolonteersList, volonteersList, tag } = useContext(UserContext);
 
   const [volonteerListToDisplay, setVolonteerListToDisplay] = useState([]);
 
@@ -17,27 +16,20 @@ const Volonteers = () => {
     getVolonteersList();
   }, []);
 
-  // Use functional update to ensure state consistency
   useEffect(() => {
-    setVolonteerListToDisplay(() => {
-      // Map through volonteersList to create the updated list
-      const updatedList = volonteersList.map((volunteer) => {
-        // Find the corresponding activity type object
-        const newActivityTypes = ACTIVITY_TYPES.filter(({ id }) =>
-          volunteer.activity_types.includes(id)
-        );
-
-        return { ...volunteer, activity_types: newActivityTypes };
-      });
-
-      return updatedList;
+    const newVolonteerListToDisplay = volonteersList.filter((volunteer) => {
+      const volunteerTags = volunteer.activity_types.map(({ name }) => name);
+      return tag.every((t) => volunteerTags.includes(t));
     });
-  }, [volonteersList]);
+
+    setVolonteerListToDisplay(newVolonteerListToDisplay);
+  }, [tag, volonteersList]);
 
   return (
     <Wrapper>
       <Heading title="Volonteri" />
       <Header volonteersFlag />
+      <Filter />
       <VolonteersList data={volonteerListToDisplay} />
     </Wrapper>
   );

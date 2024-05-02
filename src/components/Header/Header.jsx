@@ -14,7 +14,6 @@ import Select from "@mui/material/Select";
 
 import { sortArray } from "../../utils/arrayManipulation";
 import UserContext from "../../context/UserContext";
-import MultipleSelectCheckmarks from "../UI/MultipleSelect";
 
 const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
@@ -29,7 +28,6 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
     setVolonteersList,
     volonteersList,
   } = useContext(UserContext);
-  console.log(activitiesList);
 
   const handleChange = (event) => {
     setSortType(event.target.value);
@@ -95,7 +93,6 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
           <MenuItem value={"city-desc"}>Gradovi z-a</MenuItem>
         </Select>
       </FormControl>
-      {volonteersFlag && <MultipleSelectCheckmarks />}
       <Button
         title="DODAJ"
         titleColor="#00b300"
