@@ -1,8 +1,8 @@
+import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
-import { useState } from "react";
 
 const Modal = ({ isOpen, closeModal, children }) => {
-  return (
+  return createPortal(
     <div>
       {isOpen && (
         <div className={styles.modalBackdrop} onClick={closeModal}>
@@ -14,7 +14,8 @@ const Modal = ({ isOpen, closeModal, children }) => {
           </div>
         </div>
       )}
-    </div>
+    </div>,
+    document.getElementById("modal")
   );
 };
 
