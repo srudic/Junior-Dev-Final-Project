@@ -6,14 +6,14 @@ import UserContext from "../../context/UserContext";
 import VolonteersList from "../../components/VolonteersList/VolonteersList";
 import Wrapper from "../../components/UI/Wrapper/Wrapper";
 
+import { ACTIVITY_TYPES } from "../../utils/constants";
+
 const Volonteers = () => {
-  const { activityTypes, getActivityTypes, getVolonteersList, volonteersList } =
-    useContext(UserContext);
+  const { getVolonteersList, volonteersList } = useContext(UserContext);
 
   const [volonteerListToDisplay, setVolonteerListToDisplay] = useState([]);
 
   useEffect(() => {
-    getActivityTypes();
     getVolonteersList();
   }, []);
 
@@ -23,7 +23,7 @@ const Volonteers = () => {
       // Map through volonteersList to create the updated list
       const updatedList = volonteersList.map((volunteer) => {
         // Find the corresponding activity type object
-        const newActivityTypes = activityTypes.filter(({ id }) =>
+        const newActivityTypes = ACTIVITY_TYPES.filter(({ id }) =>
           volunteer.activity_types.includes(id)
         );
 
