@@ -107,8 +107,8 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
           {volonteersFlag && (
             <Button
               title="FILTRIRAJ"
-              titleColor="blue"
-              icon={<FaFilter color="blue" />}
+              titleColor="rgb(26, 66, 94)"
+              icon={<FaFilter color="rgb(26, 66, 94)" />}
               onClickButton={() => handleOpenFilter()}
             />
           )}

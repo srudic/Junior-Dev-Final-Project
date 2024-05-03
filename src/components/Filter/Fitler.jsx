@@ -31,8 +31,8 @@ const Filter = () => {
         />
         <Button
           title="VRATI"
-          titleColor="blue"
-          icon={<IoMdRefresh color="blue" size={25} />}
+          titleColor="rgb(26, 66, 94)"
+          icon={<IoMdRefresh color="rgb(26, 66, 94)" size={25} />}
         />
       </div>
     </div>
