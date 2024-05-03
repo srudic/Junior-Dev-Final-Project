@@ -5,8 +5,9 @@ import { db } from "../../firebase-config";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { MdAssignmentInd } from "react-icons/md";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Button from "../UI/Button/Button";
@@ -28,6 +29,7 @@ const ActivityDetails = ({
   } = useForm();
   const { isAdminMode, getActivitiesList, activitiesList } =
     useContext(UserContext);
+  const [signInFlag, setSignInFlag] = useState(false);
 
   const handleOnClickDelete = async (participant) => {
     try {
@@ -57,14 +59,11 @@ const ActivityDetails = ({
       console.error(err);
     }
   };
-  //TODO
-  //prikaz lokacije
-  //prijava na aktivnost
-  //Na stranici/prozoru sa detaljnim opisom aktivnosti, potrebno je dozvoliti korisnicima prijavu na aktivnost.
-  //Implementirajte polja za unos imena i prezimena volontera te ih odmah dodajte na popis.
 
-  // ADMIN ->  brisanje pojedinih korisnika iz popisa prijava te brisanje čitavog događaja
-  // Po želji možete implementirati i mogućnost uređivanja postojećih podataka (samo u ulozi admina)
+  const handleSignInForm = () => {
+    setSignInFlag(!signInFlag);
+  };
+
   return (
     <div className={styles.detailsContainer}>
       <h3>{name}</h3>
@@ -99,10 +98,20 @@ const ActivityDetails = ({
             </ul>
           )}
         </div>
+
         <div>
+          <div className={styles.signButton}>
+            <Button
+              title="PRIJAVI SE"
+              titleColor="rgb(29, 143, 29)"
+              icon={<MdAssignmentInd color="rgb(29, 143, 29)" />}
+              onClickButton={() => handleSignInForm()}
+            />
+          </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={styles.FormContainer}
+            style={{ visibility: signInFlag ? "visible" : "hidden" }}
           >
             <div className={styles.FormGroup}>
               <label className={styles.Label}>Ime i prezime</label>
