@@ -63,7 +63,7 @@ const AssociaionForm = ({ handleApprovalRequestSuccess }) => {
             {...register("name", {
               required: true,
               minLength: 3,
-              maxLength: 50,
+              maxLength: 100,
             })}
             className={styles.InputField}
           />
