@@ -6,6 +6,19 @@
   margin: 0 auto;
 }
 
+@media screen and (max-width: 1024px) {
+  .Navigation {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .Navigation {
+    padding: 1rem;
+  }
+}
+
 .Navigation h2 {
   margin: 0;
   padding: 0;
@@ -37,4 +50,42 @@
 .Tab a {
   text-decoration: none;
   color: inherit;
+}
+
+@media screen and (max-width: 810px) {
+  .Tab {
+    font-size: 1rem;
+  }
+  .Navigation {
+    justify-content: left;
+  }
+  .Navigation h2 {
+    margin-left: 1rem;
+  }
+}
+
+.HamburgerBar {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mobileNav {
+  z-index: 999;
+  position: fixed;
+  top: 50px;
+  left: -100%; /* Initially position it off the screen */
+  width: 100vw;
+  height: calc(100vh - 50px); /* Adjust height accordingly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(to bottom, #9bb3d7, white);
+  padding-top: 1rem;
+  font-size: 1rem;
+  transition: left 10s ease-in; /* Apply transition effect to left property */
+}
+
+.mobileNav.active {
+  left: 0; /* Slide it in when active */
 }
