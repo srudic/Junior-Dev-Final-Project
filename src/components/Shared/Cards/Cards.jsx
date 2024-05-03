@@ -143,7 +143,7 @@ const Card = ({
 
 const Cards = ({ data, requestsFlag, activities }) => {
   return (
-    <>
+    <div className={styles.cardsContainer}>
       {data &&
         data.map((element) => (
           <Card
@@ -158,7 +158,7 @@ const Cards = ({ data, requestsFlag, activities }) => {
             activities={activities}
           />
         ))}
-    </>
+    </div>
   );
 };
 export default Cards;
