@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 
-import Filter from "../../components/Filter/Fitler";
 import Header from "../../components/Header/Header";
 import Heading from "../../components/UI/Heading/Heading";
 import UserContext from "../../context/UserContext";
@@ -29,7 +28,6 @@ const Volonteers = () => {
     <Wrapper>
       <Heading title="Volonteri" />
       <Header volonteersFlag />
-      <Filter />
       <VolonteersList data={volonteerListToDisplay} />
     </Wrapper>
   );

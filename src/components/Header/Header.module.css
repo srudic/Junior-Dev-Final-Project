@@ -1,8 +1,18 @@
 .headerContainer {
   display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
 }
 
 .FormGroup {

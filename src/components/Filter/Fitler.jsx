@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { FaFilter } from "react-icons/fa6";
-import { IoMdRefreshCircle } from "react-icons/io";
+import { IoMdRefresh } from "react-icons/io";
+import { IoSearch } from "react-icons/io5";
 
 import Button from "../UI/Button/Button";
 import MultipleSelectCheckmarks from "../UI/MultipleSelect";
@@ -22,13 +22,19 @@ const Filter = () => {
 
   return (
     <div className={styles.filterContainer}>
-      <Button icon={<IoMdRefreshCircle color="blue" size={25} />} />
       <MultipleSelectCheckmarks handleChangeTag={handleChangeTag} tag={tag} />
-      <Button
-        title="FILTRIRAJ"
-        titleColor="blue"
-        icon={<FaFilter color="blue" />}
-      />
+      <div className={styles.buttons}>
+        <Button
+          title="PRETRAŽI"
+          titleColor="rgb(29, 143, 29)"
+          icon={<IoSearch color="rgb(29, 143, 29)" size={25} />}
+        />
+        <Button
+          title="VRATI"
+          titleColor="blue"
+          icon={<IoMdRefresh color="blue" size={25} />}
+        />
+      </div>
     </div>
   );
 };
