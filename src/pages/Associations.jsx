@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react";
 
-import Cards from "../../components/Shared/Cards/Cards";
-import Header from "../../components/Header/Header";
-import Heading from "../../components/UI/Heading/Heading";
-import UserContext from "../../context/UserContext";
-import Wrapper from "../../components/UI/Wrapper/Wrapper";
+import Cards from "../components/Shared/Cards/Cards";
+import Header from "../components/Header/Header";
+import Heading from "../components/UI/Heading/Heading";
+import UserContext from "../context/UserContext";
+import Wrapper from "../components/UI/Wrapper/Wrapper";
 
 const Associations = () => {
   const {

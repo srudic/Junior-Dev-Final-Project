@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Header from "../../components/Header/Header";
-import Cards from "../../components/Shared/Cards/Cards";
-import Wrapper from "../../components/UI/Wrapper/Wrapper";
-import Heading from "../../components/UI/Heading/Heading";
+import Header from "../components/Header/Header";
+import Cards from "../components/Shared/Cards/Cards";
+import Wrapper from "../components/UI/Wrapper/Wrapper";
+import Heading from "../components/UI/Heading/Heading";
 import { useContext, useEffect } from "react";
-import UserContext from "../../context/UserContext";
+import UserContext from "../context/UserContext";
 
 //TODO
 // aktivnosti možete poredati po vremenu dodavanja ili dodajte opciju sortiranja po nekom parametru (datum, grad ili slično)

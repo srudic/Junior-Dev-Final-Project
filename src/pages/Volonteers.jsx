@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 
-import Header from "../../components/Header/Header";
-import Heading from "../../components/UI/Heading/Heading";
-import UserContext from "../../context/UserContext";
-import VolonteersList from "../../components/VolonteersList/VolonteersList";
-import Wrapper from "../../components/UI/Wrapper/Wrapper";
+import Header from "../components/Header/Header";
+import Heading from "../components/UI/Heading/Heading";
+import UserContext from "../context/UserContext";
+import VolonteersList from "../components/VolonteersList/VolonteersList";
+import Wrapper from "../components/UI/Wrapper/Wrapper";
 
 const Volonteers = () => {
   const { getVolonteersList, volonteersList, tag } = useContext(UserContext);
