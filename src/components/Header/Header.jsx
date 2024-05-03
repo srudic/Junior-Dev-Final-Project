@@ -104,6 +104,8 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
               <MenuItem value={"city-desc"}>Gradovi z-a</MenuItem>
             </Select>
           </FormControl>
+        </div>
+        <div className={styles.buttons}>
           {volonteersFlag && (
             <Button
               title="FILTRIRAJ"
@@ -112,13 +114,14 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
               onClickButton={() => handleOpenFilter()}
             />
           )}
+
+          <Button
+            title="DODAJ"
+            titleColor="#00b300"
+            icon={<FaCirclePlus size={20} color="#00b300" />}
+            onClickButton={handleOpenAddForm}
+          />
         </div>
-        <Button
-          title="DODAJ"
-          titleColor="#00b300"
-          icon={<FaCirclePlus size={20} color="#00b300" />}
-          onClickButton={handleOpenAddForm}
-        />
         {isAddFormOpen && (
           <Modal closeModal={closeModal} isOpen={isAddFormOpen}>
             {activitiesFlag && <ActivityForm closeModal={closeModal} />}
@@ -135,7 +138,7 @@ const Header = ({ associationsFlag, activitiesFlag, volonteersFlag }) => {
         )}
       </div>
       {isFilterOpen && (
-        <div>
+        <div className={styles.filterContainer}>
           <Filter />
         </div>
       )}

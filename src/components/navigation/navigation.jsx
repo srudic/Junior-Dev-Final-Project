@@ -60,7 +60,9 @@ const Navigation = () => {
                   style={({ isActive }) => {
                     return {
                       // borderBottom: isActive ? "1px solid gray" : "",
-                      backgroundColor: isActive ? "#0D47A1" : "white",
+                      backgroundColor: isActive
+                        ? "#0D47A1"
+                        : "rgba(255, 255, 255, 0.367)",
                       color: isActive ? "white" : "#0D47A1",
                       padding: "10px 15px",
                       borderRadius: "20px",

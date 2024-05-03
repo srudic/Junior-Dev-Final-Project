@@ -15,6 +15,7 @@
   flex-direction: column;
   align-items: center;
   height: 240px;
+  background-color: rgba(255, 255, 255, 0.367);
 }
 
 .title {

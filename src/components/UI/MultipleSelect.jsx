@@ -23,7 +23,7 @@ import { ACTIVITY_TYPES } from "../../utils/constants";
 export default function MultipleSelectCheckmarks({ tag, handleChangeTag }) {
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl sx={{ m: 1, width: 250 }}>
         <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"

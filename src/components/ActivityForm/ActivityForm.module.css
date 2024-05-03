@@ -79,3 +79,19 @@
 .SubmitButton:hover {
   background-color: rgb(29, 143, 29);
 }
+
+@media screen and (max-width: 810px) {
+  .FormGroupRow {
+    flex-direction: column;
+  }
+  .RadioButtonGroup {
+    margin-bottom: 1rem;
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .FormContainer {
+    padding: 10px;
+  }
+}

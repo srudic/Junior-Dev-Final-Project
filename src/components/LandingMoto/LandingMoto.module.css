@@ -28,3 +28,38 @@ h3 {
   display: flex;
   justify-content: center;
 }
+
+@media screen and (max-width: 810px) {
+  h2 {
+    margin: 0;
+    padding: 0;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+  .motoContainer {
+    flex-direction: column;
+  }
+
+  .motoContainer img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .Image {
+    justify-content: center;
+  }
+
+  .Image img {
+    width: 480px;
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .Image img {
+    width: 280px;
+    height: 200px;
+  }
+}

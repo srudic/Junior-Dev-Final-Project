@@ -9,3 +9,9 @@
   margin: 0;
   font-size: 12px;
 }
+
+@media screen and (max-width: 810px) {
+  .Footer {
+    font-size: 12px;
+  }
+}

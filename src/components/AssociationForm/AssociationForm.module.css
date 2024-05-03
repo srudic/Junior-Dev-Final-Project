@@ -1,6 +1,9 @@
 .FormContainer {
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .FormGroup {
@@ -38,8 +41,6 @@
 }
 
 .SubmitButton {
-  position: relative;
-  left: 35%;
   background-color: rgb(40, 204, 40);
   color: white;
   font-size: 1rem;
@@ -51,4 +52,10 @@
 
 .SubmitButton:hover {
   background-color: rgb(29, 143, 29);
+}
+
+@media screen and (max-width: 375px) {
+  .FormGroupRow {
+    flex-direction: column;
+  }
 }

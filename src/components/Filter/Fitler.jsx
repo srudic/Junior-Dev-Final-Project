@@ -23,7 +23,7 @@ const Filter = () => {
   return (
     <div className={styles.filterContainer}>
       <MultipleSelectCheckmarks handleChangeTag={handleChangeTag} tag={tag} />
-      <div className={styles.buttons}>
+      {/* <div className={styles.buttons}>
         <Button
           title="PRETRAŽI"
           titleColor="rgb(29, 143, 29)"
@@ -34,7 +34,7 @@ const Filter = () => {
           titleColor="rgb(26, 66, 94)"
           icon={<IoMdRefresh color="rgb(26, 66, 94)" size={25} />}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
