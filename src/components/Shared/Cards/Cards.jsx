@@ -131,7 +131,7 @@ const Card = ({
             name={element.name}
             date={element.date}
             association={element.association}
-            location={element.location}
+            city={element.city}
             participants={element.participants}
             description={element.description}
           />

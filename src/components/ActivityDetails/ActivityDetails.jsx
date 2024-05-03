@@ -17,7 +17,7 @@ const ActivityDetails = ({
   name,
   date,
   association,
-  location,
+  city,
   participants,
   description,
 }) => {
@@ -74,7 +74,7 @@ const ActivityDetails = ({
       <div className={styles.left}>
         <p>
           <FaMapMarkerAlt color="#8B0000" size={20} />
-          <span>{location}</span>
+          <span>{city}</span>
         </p>
       </div>
       <div className={styles.participantsContainer}>
