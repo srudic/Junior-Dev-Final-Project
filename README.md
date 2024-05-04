@@ -77,4 +77,4 @@ Implement two user roles: "admin" and "user." Use a simple "checkbox" element to
 
 So fasten your seatbelt 🚦 and get ready to explore the world of volunteering with us! 🌍
 
-👉 Click here and enjoy [VolonterKo](junior-dev-final-project.vercel.app)
+👉 Click here and enjoy [VolonteerKo](https://junior-dev-final-project.vercel.app/)
