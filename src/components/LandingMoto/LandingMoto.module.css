@@ -16,17 +16,36 @@
 
 .motoContainer h2 {
   margin-right: 10px;
+  font-size: 1.1rem;
 }
 
 h3 {
   font-weight: normal;
   margin: 0.5rem 0;
-  font-size: 16px;
+  font-size: 0.8rem;
+}
+
+h2 {
+  font-size: 1.2rem;
 }
 
 .Image {
   display: flex;
   justify-content: center;
+}
+
+.Image img {
+  border-radius: 50%;
+  animation: rotateAnimation 60s linear infinite;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media screen and (max-width: 810px) {
@@ -52,14 +71,14 @@ h3 {
   }
 
   .Image img {
-    width: 480px;
+    width: 300px;
     height: 300px;
   }
 }
 
 @media screen and (max-width: 475px) {
   .Image img {
-    width: 280px;
+    width: 200px;
     height: 200px;
   }
 }

@@ -6,6 +6,8 @@
   font-weight: 400;
 
   background-image: linear-gradient(to bottom, #0d48a16f, white);
+  background-size: 100% 60%;
+  background-repeat: no-repeat;
 }
 
 * {
