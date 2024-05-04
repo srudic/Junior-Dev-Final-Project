@@ -36,6 +36,21 @@ const Navigation = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    // Add or remove 'overflow-hidden' class to body when mobileNavOpen changes
+    if (mobileNavOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileNavOpen]);
+
   return (
     <>
       <div className={styles.Navigation}>
