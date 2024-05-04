@@ -16,14 +16,23 @@ const UserContext = createContext({
   getAssociationsRequestList: () => {},
   getVolonteersList: () => {},
   setActivitiesList: () => {},
-  setActivityTypes: () => {},
   setAssociationsList: () => {},
-  setAssociationsRequestList: () => {},
   setIsAdminMode: () => {},
   setTag: () => {},
   setVolonteersList: () => {},
   sortBy: () => {},
   volonteersList: [],
+  addNewVolonteerToList: () => {},
+  removeVolonteerFromListById: () => {},
+  updateVolonteerInListById: () => {},
+  removeActivityFromListById: () => {},
+  addNewActivityToList: () => {},
+  updateActivity: () => {},
+  removeParticipantsFromActivity: () => {},
+  addNewAssociationToList: () => {},
+  removeAssociationFromList: () => {},
+  removeAssociationRequest: () => {},
+  addNewAssociationRequestToList: () => {},
 });
 
 export function UserContextProvider({ children }) {
@@ -47,6 +56,19 @@ export function UserContextProvider({ children }) {
     }
   };
 
+  const addNewAssociationToList = (newAssociation) => {
+    const updatedAssociationList = [...associationsList, newAssociation];
+    setAssociationsList(updatedAssociationList);
+  };
+
+  const removeAssociationFromList = (associationId) => {
+    const updatedAssociationList = associationsList.filter(
+      (association) => association.id !== associationId
+    );
+
+    setAssociationsList(updatedAssociationList);
+  };
+
   const getAssociationsRequestList = async () => {
     try {
       const data = await getDocs(collection(db, "approval-requests"));
@@ -58,6 +80,19 @@ export function UserContextProvider({ children }) {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const addNewAssociationRequestToList = (newRequest) => {
+    const updatedRequestList = [...associationsRequestList, newRequest];
+    setAssociationsRequestList(updatedRequestList);
+  };
+
+  const removeAssociationRequest = (requestId) => {
+    const updatedRequestList = associationsRequestList.filter(
+      (request) => request.id !== requestId
+    );
+
+    setAssociationsRequestList(updatedRequestList);
   };
 
   const getVolonteersList = async () => {
@@ -88,6 +123,38 @@ export function UserContextProvider({ children }) {
     }
   };
 
+  const addNewVolonteerToList = (newVolonteer) => {
+    const newActivityTypes = ACTIVITY_TYPES.filter(({ id }) =>
+      newVolonteer.activity_types.includes(id)
+    );
+    newVolonteer.activity_types = newActivityTypes;
+    const updatedVolonteerList = [...volonteersList, newVolonteer];
+    setVolonteersList(updatedVolonteerList);
+  };
+
+  const updateVolonteerInListById = (volonteerIdToUpdate, updatedVolonteer) => {
+    const newActivityTypes = ACTIVITY_TYPES.filter(({ id }) =>
+      updatedVolonteer.activity_types.includes(id)
+    );
+    updatedVolonteer.activity_types = newActivityTypes;
+    const updatedVolonteerList = volonteersList.map((volonteer) => {
+      if (volonteer.id === volonteerIdToUpdate) {
+        return { ...volonteer, ...updatedVolonteer };
+      }
+      return volonteer;
+    });
+
+    setVolonteersList(updatedVolonteerList);
+  };
+
+  const removeVolonteerFromListById = (volonteerIdToRemove) => {
+    const updatedVolonteerList = volonteersList.filter(
+      (volonteer) => volonteer.id !== volonteerIdToRemove
+    );
+
+    setVolonteersList(updatedVolonteerList);
+  };
+
   const getActivitiesList = async () => {
     try {
       const data = await getDocs(collection(db, "activities"));
@@ -99,6 +166,54 @@ export function UserContextProvider({ children }) {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const addNewActivityToList = (newActivity) => {
+    const updatedActivitiyList = [...activitiesList, newActivity];
+    setActivitiesList(updatedActivitiyList);
+  };
+
+  const updateActivity = (activityId, newParticipants) => {
+    const updatedVolonteerList = activitiesList.map((activity) => {
+      if (activity.id === activityId) {
+        const updatedParticipants = [...activity.participants, newParticipants];
+
+        // Return the activity with updated participants
+        return { ...activity, participants: updatedParticipants };
+      }
+      return activity;
+    });
+
+    setActivitiesList(updatedVolonteerList);
+  };
+
+  const removeParticipantsFromActivity = (activityId, participantToRemove) => {
+    const updatedActivitiesList = activitiesList.map((activity) => {
+      if (activity.id === activityId) {
+        // Filter out the participant to remove from the participants array
+        const updatedParticipants = activity.participants.filter(
+          (participant) =>
+            participant.name_surname !== participantToRemove.name_surname ||
+            participant.phone !== participantToRemove.phone
+        );
+
+        // Return the activity with updated participants
+        return { ...activity, participants: updatedParticipants };
+      }
+      // Return the activity as it is if its ID does not match
+      return activity;
+    });
+
+    // Set the state with the updated activities list
+    setActivitiesList(updatedActivitiesList);
+  };
+
+  const removeActivityFromListById = (activityIdToRemove) => {
+    const updatedAcvitiyList = activitiesList.filter(
+      (activity) => activity.id !== activityIdToRemove
+    );
+
+    setActivitiesList(updatedAcvitiyList);
   };
 
   const value = {
@@ -117,6 +232,17 @@ export function UserContextProvider({ children }) {
     setTag,
     tag,
     volonteersList,
+    addNewVolonteerToList,
+    removeVolonteerFromListById,
+    updateVolonteerInListById,
+    removeActivityFromListById,
+    addNewActivityToList,
+    updateActivity,
+    removeParticipantsFromActivity,
+    addNewAssociationToList,
+    removeAssociationFromList,
+    removeAssociationRequest,
+    addNewAssociationRequestToList,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

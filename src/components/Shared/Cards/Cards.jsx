@@ -24,9 +24,10 @@ const Card = ({
 }) => {
   const {
     isAdminMode,
-    getAssociationsRequestList,
-    getAssociationsList,
-    getActivitiesList,
+    removeActivityFromListById,
+    addNewAssociationToList,
+    removeAssociationFromList,
+    removeAssociationRequest,
   } = useContext(UserContext);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ const Card = ({
   const deleteApprovalRequest = async (element) => {
     try {
       await deleteDoc(doc(db, "approval-requests", element.id));
-      getAssociationsRequestList();
+      removeAssociationRequest(element.id);
     } catch (err) {
       console.error(err);
     }
@@ -52,14 +53,18 @@ const Card = ({
 
   const approveRequest = async (element) => {
     try {
-      await addDoc(collection(db, "associations"), {
+      const res = await addDoc(collection(db, "associations"), {
         name: element.name,
         address: element.address,
         city: element.city,
       });
       deleteApprovalRequest(element);
-      getAssociationsRequestList();
-      getAssociationsList();
+      addNewAssociationToList({
+        id: res.id,
+        name: element.name,
+        address: element.address,
+        city: element.city,
+      });
     } catch (err) {
       console.error(err);
     }
@@ -68,7 +73,7 @@ const Card = ({
   const deleteAssociation = async (element) => {
     try {
       await deleteDoc(doc(db, "associations", element.id));
-      getAssociationsList();
+      removeAssociationFromList(element.id);
     } catch (err) {
       console.error(err);
     }
@@ -77,7 +82,7 @@ const Card = ({
   const deleteActivity = async (element) => {
     try {
       await deleteDoc(doc(db, "activities", element.id));
-      getActivitiesList();
+      removeActivityFromListById(element.id);
     } catch (err) {
       console.error(err);
     }

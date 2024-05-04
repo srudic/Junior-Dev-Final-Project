@@ -16,13 +16,13 @@ import styles from "./VolonteersList.module.css";
 
 const Volonteer = ({ name, city, jobs, id, data }) => {
   let avatarSVG = multiavatar(name);
-  const { isAdminMode, getVolonteersList } = useContext(UserContext);
+  const { isAdminMode, removeVolonteerFromListById } = useContext(UserContext);
   const [isEditing, setIsEditing] = useState(false);
 
   const deleteVolonteer = async (id) => {
     try {
-      await deleteDoc(doc(db, "volonteers", id));
-      getVolonteersList();
+      const res = await deleteDoc(doc(db, "volonteers", id));
+      removeVolonteerFromListById(id);
     } catch (err) {
       console.error(err);
     }

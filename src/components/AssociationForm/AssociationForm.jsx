@@ -30,7 +30,7 @@ const AssociaionForm = ({ handleApprovalRequestSuccess }) => {
     formState: { errors },
   } = useForm();
 
-  const { getAssociationsRequestList } = useContext(UserContext);
+  const { addNewAssociationRequestToList } = useContext(UserContext);
 
   const sortedTowns = sortArrayOfObjectsByCity(towns);
   const filteredData = sortedTowns.filter(
@@ -40,14 +40,18 @@ const AssociaionForm = ({ handleApprovalRequestSuccess }) => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      await addDoc(collection(db, "approval-requests"), {
+      const res = await addDoc(collection(db, "approval-requests"), {
         name: data.name,
         address: data.address,
         city: data.city,
       });
-      getAssociationsRequestList();
-      // TODO
-      // Dodaj poruku nakon uspješno poslanog zahtjeva
+      addNewAssociationRequestToList({
+        id: res.id,
+        name: data.name,
+        address: data.address,
+        city: data.city,
+      });
+
       handleApprovalRequestSuccess();
     } catch (err) {
       console.error(err);

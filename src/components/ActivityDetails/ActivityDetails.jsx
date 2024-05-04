@@ -27,7 +27,7 @@ const ActivityDetails = ({
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { isAdminMode, getActivitiesList, activitiesList } =
+  const { isAdminMode, updateActivity, removeParticipantsFromActivity } =
     useContext(UserContext);
   const [signInFlag, setSignInFlag] = useState(false);
 
@@ -39,7 +39,10 @@ const ActivityDetails = ({
           phone: participant.phone,
         }),
       });
-      getActivitiesList();
+      removeParticipantsFromActivity(id, {
+        name_surname: participant.name_surname,
+        phone: participant.phone,
+      });
     } catch (err) {
       console.error(err);
     }
@@ -54,7 +57,10 @@ const ActivityDetails = ({
           phone: data.phone,
         }),
       });
-      getActivitiesList();
+      updateActivity(id, {
+        name_surname: data.name_surname,
+        phone: data.phone,
+      });
     } catch (err) {
       console.error(err);
     }

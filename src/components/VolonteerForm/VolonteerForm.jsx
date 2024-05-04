@@ -33,7 +33,8 @@ const VolonteerForm = ({ closeModal, edit }) => {
     setValue,
     formState: { errors },
   } = useForm();
-  const { getVolonteersList } = useContext(UserContext);
+  const { addNewVolonteerToList, updateVolonteerInListById } =
+    useContext(UserContext);
 
   const sortedTowns = sortArrayOfObjectsByCity(towns);
   const filteredData = sortedTowns.filter(
@@ -73,15 +74,28 @@ const VolonteerForm = ({ closeModal, edit }) => {
           city: data.city,
           activity_types: data.volonteer_jobs,
         });
+        updateVolonteerInListById(edit.id, {
+          id: edit.id,
+          name_surname: data.name,
+          city: data.city,
+          activity_types: data.volonteer_jobs,
+        });
       } else {
         // If adding new, add a new document
-        await addDoc(collection(db, "volonteers"), {
+        const res = await addDoc(collection(db, "volonteers"), {
+          name_surname: data.name,
+          city: data.city,
+          activity_types: data.volonteer_jobs,
+        });
+
+        addNewVolonteerToList({
+          id: res.id,
           name_surname: data.name,
           city: data.city,
           activity_types: data.volonteer_jobs,
         });
       }
-      getVolonteersList();
+
       closeModal();
     } catch (err) {
       console.error(err);

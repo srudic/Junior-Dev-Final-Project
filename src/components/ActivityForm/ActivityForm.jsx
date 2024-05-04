@@ -30,7 +30,7 @@ const ActivityForm = ({ closeModal }) => {
     formState: { errors },
   } = useForm();
 
-  const { associationsList, getActivitiesList } = useContext(UserContext);
+  const { associationsList, addNewActivityToList } = useContext(UserContext);
 
   const [associationOption, setAssociationOption] = useState("");
 
@@ -45,7 +45,7 @@ const ActivityForm = ({ closeModal }) => {
 
   const onSubmit = async (data) => {
     try {
-      await addDoc(collection(db, "activities"), {
+      const res = await addDoc(collection(db, "activities"), {
         association: data.association,
         date: data.date,
         description: data.description,
@@ -54,7 +54,15 @@ const ActivityForm = ({ closeModal }) => {
         participants: [],
         creationdate: Timestamp.fromDate(new Date()),
       });
-      getActivitiesList();
+      addNewActivityToList({
+        id: res.id,
+        association: data.association,
+        date: data.date,
+        description: data.description,
+        city: data.city,
+        name: data.title,
+        participants: [],
+      });
       closeModal();
     } catch (err) {
       console.error(err);
