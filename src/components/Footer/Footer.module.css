@@ -1,13 +1,12 @@
 .Footer {
   margin-top: 4rem;
-  background-color: grey;
+  background-color: #909fb4;
   padding: 1rem 0;
   color: white;
 }
 
-.Footer p {
-  margin: 0;
-  font-size: 12px;
+.Footer div {
+  font-size: 0.8rem;
 }
 
 @media screen and (max-width: 810px) {

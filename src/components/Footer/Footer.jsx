@@ -1,4 +1,4 @@
-import { FaSquareGithub } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 
 import Button from "../UI/Button/Button";
@@ -23,8 +23,9 @@ const Footer = () => {
         <div>
           Za više detalja pogledajte
           <Button
+            titleColor="#0D47A1"
             title="Github repozitorij"
-            icon={<FaSquareGithub />}
+            icon={<FaGithub size={20} />}
             onClickButton={() => handleGithubRepo()}
           />
         </div>
@@ -32,12 +33,14 @@ const Footer = () => {
           Da biste saznali nešto više o meni posjetite
           <Button
             title="Github"
-            icon={<FaSquareGithub />}
+            titleColor="#0D47A1"
+            icon={<FaGithub size={20} />}
             onClickButton={() => handleGithubProfile()}
           />
           <Button
             title="LinkedIn"
-            icon={<FaLinkedin />}
+            titleColor="#0D47A1"
+            icon={<FaLinkedin size={20} color="#0D47A1" />}
             onClickButton={() => handleLinkedInProfile()}
           />
         </div>
