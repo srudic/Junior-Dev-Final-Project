@@ -93,7 +93,7 @@ const AssociaionForm = ({ handleApprovalRequestSuccess }) => {
           <div className={styles.FormGroup}>
             <label className={styles.Label}>Grad</label>
             <select
-              {...register("city")}
+              {...register("city", { required: true })}
               className={[styles.SelectField, styles.ScrollableDropdown].join(
                 " "
               )}
@@ -102,11 +102,16 @@ const AssociaionForm = ({ handleApprovalRequestSuccess }) => {
               <option value="defaultTown" disabled>
                 Izaberi grad
               </option>
-              {filteredData.map((city) => (
-                <option value={city.code}>{city.city}</option>
+              {filteredData.map((city, index) => (
+                <option value={city.code} key={`${city.code}-${index}`}>
+                  {city.city}
+                </option>
               ))}
             </select>
           </div>
+          {errors.city && (
+            <span className={styles.ErrorMessage}>Odaberite grad.</span>
+          )}
         </div>
         <button type="submit" className={styles.SubmitButton}>
           POTVRDI

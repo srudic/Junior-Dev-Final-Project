@@ -130,7 +130,7 @@ const VolonteerForm = ({ closeModal, edit }) => {
                   <input
                     type="checkbox"
                     id={job.id}
-                    {...register("volonteer_jobs")}
+                    {...register("volonteer_jobs", { required: true })}
                     value={job.id}
                     className={styles.InputField}
                   />
@@ -140,11 +140,17 @@ const VolonteerForm = ({ closeModal, edit }) => {
                 </div>
               ))}
             </div>
+            {errors.volonteer_jobs && (
+              <span className={styles.ErrorMessage}>
+                Označite odabir vrste aktivnosti.
+              </span>
+            )}
           </div>
+
           <div className={styles.FormGroup}>
             <label className={styles.Label}>Grad</label>
             <select
-              {...register("city")}
+              {...register("city", { required: true })}
               className={[styles.SelectField, styles.ScrollableDropdown].join(
                 " "
               )}
@@ -153,13 +159,16 @@ const VolonteerForm = ({ closeModal, edit }) => {
               <option value="defaultTown" disabled>
                 Izaberi grad
               </option>
-              {filteredData.map((city) => (
-                <option value={city.code} key={city.code}>
+              {filteredData.map((city, index) => (
+                <option value={city.code} key={`${city.code}-${index}`}>
                   {city.city}
                 </option>
               ))}
             </select>
           </div>
+          {errors.city && (
+            <span className={styles.ErrorMessage}>Odaberite grad.</span>
+          )}
         </div>
         <button type="submit" className={styles.SubmitButton}>
           POTVRDI

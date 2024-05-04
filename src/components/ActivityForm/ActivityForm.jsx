@@ -114,11 +114,16 @@ const ActivityForm = ({ closeModal }) => {
               <option value="defaultTown" disabled>
                 Izaberi grad
               </option>
-              {filteredData.map((city) => (
-                <option value={city.code}>{city.city}</option>
+              {filteredData.map((city, index) => (
+                <option key={`${city.code}-${index}`} value={city.code}>
+                  {city.city}
+                </option>
               ))}
             </select>
           </div>
+          {errors.city && (
+            <span className={styles.ErrorMessage}>Odaberite grad.</span>
+          )}
         </div>
 
         <div className={styles.FormGroup}>
@@ -187,7 +192,9 @@ const ActivityForm = ({ closeModal }) => {
                     Izaberi udrugu
                   </option>
                   {associationsList.map((association) => (
-                    <option value={association.id}>{association.name}</option>
+                    <option value={association.id} key={association.id}>
+                      {association.name}
+                    </option>
                   ))}
                 </select>
               </div>

@@ -89,7 +89,7 @@ const ActivityDetails = ({
           {participants && (
             <ul>
               {participants.map((participant, index) => (
-                <li key={participant.id}>
+                <li key={index}>
                   <span>
                     {index + 1}. {participant.name_surname}
                   </span>
